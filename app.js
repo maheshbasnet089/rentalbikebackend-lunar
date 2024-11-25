@@ -1,7 +1,7 @@
 require("dotenv").config()
 const express = require("express")
 const connectToDb = require("./database")
-const { registerUser, loginUser } = require("./controller/authentication")
+const { registerUser, loginUser, forgotPassword, resetPassword } = require("./controller/authentication")
 const app = express()
 connectToDb()
 
@@ -11,6 +11,8 @@ app.use(express.json())
 // register api 
 app.post("/register",registerUser)
 app.post("/login",loginUser)
+app.post("/forgot-password",forgotPassword)
+app.post("/reset-password",resetPassword)
 
 const PORT = process.env.PORT 
 app.listen(PORT,()=>{
