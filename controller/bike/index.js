@@ -19,3 +19,41 @@ exports.addBike = async (req,res)=>{
         message : "Bike added successfully"
     })
 }
+
+exports.getAllBikes = async (req,res)=>{
+   const data =  await Bike.find()
+   res.status(200).json({
+    message : "Bikes fetched successfully", 
+    data : data
+   })
+}
+
+exports.getBike = async(req,res)=>{
+    const id = req.params.id
+    const data = await Bike.findById(id)
+    res.status(200).json({
+        message : "Bike fetched successfully", 
+        data : data
+    })
+}
+exports.deleteBike = async(req,res)=>{
+    const id = req.params.id 
+    await Bike.findByIdAndDelete(id)
+    res.status(200).json({
+        message : "bike deleted successfully"
+    })
+}
+exports.updateBike = async(req,res)=>{
+    const id = req.params.id
+    const {name,brand,price,description,category} = req.body
+    await Bike.findByIdAndUpdate(id,{
+        name, 
+        brand, 
+        price, 
+        description,
+        category
+    })
+    res.status(200).json({
+        message : "Bike updated successfully"
+    })
+};
