@@ -21,11 +21,17 @@ exports.addBike = async (req,res)=>{
 }
 
 exports.getAllBikes = async (req,res)=>{
-   const data =  await Bike.find()
+   try {
+    const data =  await Bike.find()
    res.status(200).json({
     message : "Bikes fetched successfully", 
     data : data
    })
+   } catch (error) {
+    res.status(500).json({
+        message : error.message
+    })
+   }
 }
 
 exports.getBike = async(req,res)=>{

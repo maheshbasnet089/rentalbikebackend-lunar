@@ -5,18 +5,20 @@ const { registerUser, loginUser, forgotPassword, resetPassword } = require("./co
 const { addBike, getAllBikes, getBike, deleteBike, updateBike } = require("./controller/bike")
 const app = express()
 connectToDb()
+const {multer,storage} = require("./services/multerConfig")
+const upload = multer({storage : storage})
 
 // incoming json data bujna sakne capability dinxa 
 app.use(express.json())
 
 // authentication api 
-app.post("/register",registerUser)
+app.post("/register", registerUser)
 app.post("/login",loginUser)
-app.post("/forgot-password",forgotPassword) 
+app.post("/forgot-password", forgotPassword) 
 app.post("/reset-password",resetPassword)
 
 //bike api 
-app.post("/add-bike",addBike)
+app.post("/add-bike",upload.single("image"), addBike)
 app.get("/get-bikes",getAllBikes)
 app.get("/get-bikes/:id",getBike)
 app.delete("/delete-bike/:id",deleteBike)
