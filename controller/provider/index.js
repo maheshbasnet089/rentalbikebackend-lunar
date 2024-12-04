@@ -29,3 +29,25 @@ exports.becomeAProvider = async(req,res)=>{
     })
    }
 }
+
+exports.changeProviderStatus = async(req,res)=>{
+    const {status,providerId} = req.body 
+    const userId = req.user._id
+    if(status == "active"){
+       await Provider.findByIdAndUpdate(providerId,{status : "active"})
+       // code for changing user role 
+       await User.findByIdAndUpdate(userId,{role : "provider"})
+       res.status(200).json({
+        message : "Provider is active now"
+       })
+    }else if(status == "inactive"){
+        await Provider.findByIdAndUpdate(providerId,{status : "inactive"})
+        res.status(200).json({
+         message : "Provider is active now"
+        })
+    }else{
+        res.status(400).json({
+            message : "Invalid status"
+        })
+    }
+}
