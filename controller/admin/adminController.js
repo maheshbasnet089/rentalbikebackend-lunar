@@ -1,3 +1,4 @@
+const Provider = require("../../model/providerModel")
 const User = require("./../../model/userModel")
 
 
@@ -14,5 +15,13 @@ exports.deleteUser = async(req,res)=>{
     await User.findByIdAndDelete(id)
     res.status(200).json({
         message : "User deleted successfully"
+    })
+}
+
+exports.getAllProvidersList = async(req,res)=>{
+    const data = await Provider.find()
+    res.status(200).json({
+        message : "Providers fetched successfully", 
+        data 
     })
 }

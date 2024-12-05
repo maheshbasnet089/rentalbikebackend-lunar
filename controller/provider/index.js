@@ -1,4 +1,5 @@
 const Provider = require("../../model/providerModel")
+const User = require("../../model/userModel")
 
 
 
@@ -32,11 +33,11 @@ exports.becomeAProvider = async(req,res)=>{
 
 exports.changeProviderStatus = async(req,res)=>{
     const {status,providerId} = req.body 
-    const userId = req.user._id
+    const data = await Provider.findById(providerId)
     if(status == "active"){
        await Provider.findByIdAndUpdate(providerId,{status : "active"})
        // code for changing user role 
-       await User.findByIdAndUpdate(userId,{role : "provider"})
+       await  User.findByIdAndUpdate(data.customerId,{role : "provider"})
        res.status(200).json({
         message : "Provider is active now"
        })

@@ -25,6 +25,7 @@ const checkIsLoggedInOrNot = (req,res,next)=>{
             })
            }else {
             req.user = data  
+            console.log(req.user)
             next()
            }
         }
